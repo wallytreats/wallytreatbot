@@ -1,0 +1,22 @@
+{
+  "name": "twitch-bot-node",
+  "version": "1.0.0",
+  "description": "This is a Twitch Bot created with NodeJS using the tmi.js module.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wallytreats/twitch-bot-node.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/wallytreats/twitch-bot-node/issues"
+  },
+  "homepage": "https://github.com/wallytreats/twitch-bot-node#readme",
+  "dependencies": {
+    "dotenv": "^4.0.0"
+  }
+}
