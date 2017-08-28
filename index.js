@@ -39,6 +39,14 @@ client.on("chat", function(channels, user, message){
     client.say("Wallytreats", " Hi! " + user["display-name"])
   }
 
+  if(message === "!twitter"){
+    client.say("Wallytreats", "twitter.com/wallytreats")
+  }
+
+  if(message === "!discord"){
+    client.say("Wallytreats", "discord.gg/jfQ3kTd")
+  }
+
   if(message === '!command'){
     client.say("Wallytreats", "This is the command response")
   }
