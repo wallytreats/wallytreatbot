@@ -8,7 +8,6 @@ httpRequest.open('GET', 'https://api.twitch.tv/kraken/clips/top?limit=1&channel=
 httpRequest.setRequestHeader('Client-ID', 'uo6dggojyb8d6soh92zknwmi5ej1q2');
 httpRequest.setRequestHeader('Accept', 'application/vnd.twitchtv.v5+json');
 httpRequest.send();
-
 //These are the settings for the client to use.
 var options = {
   options: {
@@ -36,6 +35,7 @@ client.on("connected", function(address, port){
   //use a forEach loop to call client.action on every channel in the options.channels array1
   for (let i = 0; i < options.channels.length; i++){
     client.action(options.channels[i], "You have summoned me.");
+    console.log(options.channels);//parse the quotes and the # off and pass it to the JSON---------
   }
 });
 
