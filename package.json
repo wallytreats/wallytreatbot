@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/wallytreats/twitch-bot-node#readme",
   "dependencies": {
-    "dotenv": "^4.0.0"
+    "dotenv": "^4.0.0",
+    "xmlhttprequest": "^1.8.0"
   }
 }

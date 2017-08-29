@@ -1,7 +1,21 @@
-//Initial requires.
+//requires
 var tmi = require('tmi.js');
 var env = require("dotenv").config();
+var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
+var httpRequest = new XMLHttpRequest();
 
+httpRequest.open('GET', 'https://api.twitch.tv/kraken/clips/top?limit=1&channel=badbadrobot');
+httpRequest.setRequestHeader('Client-ID', 'uo6dggojyb8d6soh92zknwmi5ej1q2');
+httpRequest.setRequestHeader('Accept', 'application/vnd.twitchtv.v5+json');
+httpRequest.send();
+
+function clipsLoaded() {
+    var clipList = JSON.parse(httpRequest.responseText);
+
+    clipList.clips.forEach(function(clip, index, array) {
+        client.say("Wallytreats", clip.embed_url)
+    });
+}
 //These are the settings for the client to use.
 var options = {
   options: {
@@ -17,7 +31,7 @@ var options = {
     username: "wallytreatbot",
     password: process.env.TOKEN
   },
-  channels: ["Wallytreats"],
+  channels: ["Wallytreats", "xbeezlebubs"],
 }
 //This is creating our client connection with settings.
 var client = new tmi.client(options);
@@ -25,31 +39,38 @@ var client = new tmi.client(options);
 //This connects to the twitch.
 client.connect();
 
-//This function is executed as soon as the bot has connected to the channel.
 client.on("connected", function(address, port){
-  client.action("Wallytreats", "You have summoned me.");
+  //use a forEach loop to call client.action on every channel in the options.channels array1
+  for (let i = 0; i < options.channels.length; i++){
+    client.action(options.channels[i], "You have summoned me.");
+  }
 });
 
 //This function is executed everytime someone sends a message in the chat.
 client.on("chat", function(channels, user, message){
-  //this statement checks the contents of a message and creates commands.
-  //check the contents of the message to see if they match the given message, cant contain the command, it must be the entire statement
-  //This allows you to set commands or even words without worrying if someone was to use the word in a sentence or so on.
+
   if(message === "hello"){
-    client.say("Wallytreats", " Hi! " + user["display-name"])
+    client.say("wallytreats", " Hi! " + user["display-name"])
   }
 
   if(message === "!twitter"){
-    client.say("Wallytreats", "twitter.com/wallytreats")
+    client.say("Wallytreats", "Follow me on Twitter => twitter.com/wallytreats")
   }
 
   if(message === "!discord"){
-    client.say("Wallytreats", "discord.gg/jfQ3kTd")
+    client.say("Wallytreats", "Join my Discord server => discord.gg/jfQ3kTd")
   }
-
+//test command
   if(message === '!command'){
     client.say("Wallytreats", "This is the command response")
   }
+
+  if(message === "!trendingclip"){
+    (function () {
+      clipsLoaded();
+    })();
+  }
+  //end of chat listener
 });
 
 client.on("ban", function (channel, username, reason) {
