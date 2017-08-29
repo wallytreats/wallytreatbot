@@ -67,6 +67,5 @@ client.on("chat", function(channels, user, message){
 });
 
 client.on("ban", function (channel, username, reason) {
-    client.say("Wallytreats", "User: " + user[display-name] + " - has been banned.")
-    console.log(user[display-name]);
+    client.say(channel, "User: " + user[display-name] + " - has been banned.")
 });
