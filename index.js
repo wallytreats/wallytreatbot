@@ -24,7 +24,7 @@ var options = {
     username: "wallytreatbot",
     password: process.env.TOKEN
   },
-  channels: ["Wallytreats", "xbeezlebubs"],
+  channels: ["wallytreats", "xbeezlebubs"],
 }
 //This is creating our client connection with settings.
 var client = new tmi.client(options);
