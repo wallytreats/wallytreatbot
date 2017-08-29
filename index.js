@@ -75,6 +75,6 @@ client.on("chat", function(channel, user, message){
   //end of chat listener
 });
 
-// client.on("ban", function (channel, username, reason) {
-//     client.say(channel, "User: " + user[display-name] + " - has been banned.")
-// });
+client.on("ban", function (channel, username, reason) {
+    client.say(channel, "User: " + user[display-name] + " - has been banned.")
+});
