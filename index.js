@@ -9,13 +9,6 @@ httpRequest.setRequestHeader('Client-ID', 'uo6dggojyb8d6soh92zknwmi5ej1q2');
 httpRequest.setRequestHeader('Accept', 'application/vnd.twitchtv.v5+json');
 httpRequest.send();
 
-function clipsLoaded() {
-    var clipList = JSON.parse(httpRequest.responseText);
-
-    clipList.clips.forEach(function(clip, index, array) {
-        client.say("Wallytreats", clip.embed_url)
-    });
-}
 //These are the settings for the client to use.
 var options = {
   options: {
@@ -38,7 +31,7 @@ var client = new tmi.client(options);
 
 //This connects to the twitch.
 client.connect();
-
+//when connected do this
 client.on("connected", function(address, port){
   //use a forEach loop to call client.action on every channel in the options.channels array1
   for (let i = 0; i < options.channels.length; i++){
@@ -48,26 +41,26 @@ client.on("connected", function(address, port){
 
 //This function is executed everytime someone sends a message in the chat.
 client.on("chat", function(channels, user, message){
-
+//test command
   if(message === "hello"){
-    client.say("wallytreats", " Hi! " + user["display-name"])
+    client.say(channels, " Hi! " + user["display-name"])
   }
 
   if(message === "!twitter"){
-    client.say("Wallytreats", "Follow me on Twitter => twitter.com/wallytreats")
+    client.say(channels, "Follow me on Twitter => twitter.com/wallytreats")
   }
 
   if(message === "!discord"){
-    client.say("Wallytreats", "Join my Discord server => discord.gg/jfQ3kTd")
-  }
-//test command
-  if(message === '!command'){
-    client.say("Wallytreats", "This is the command response")
+    client.say(channels, "Join my Discord server => discord.gg/jfQ3kTd")
   }
 
   if(message === "!trendingclip"){
     (function () {
-      clipsLoaded();
+      var clipList = JSON.parse(httpRequest.responseText);
+
+      clipList.clips.forEach(function(clip, index, array) {
+          client.say(channels, clip.embed_url)
+      });
     })();
   }
   //end of chat listener
