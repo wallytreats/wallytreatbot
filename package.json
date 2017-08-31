@@ -18,6 +18,8 @@
   "homepage": "https://github.com/wallytreats/twitch-bot-node#readme",
   "dependencies": {
     "axios": "^0.16.2",
+    "body-parser": "^1.17.2",
+    "cors": "^2.8.4",
     "dotenv": "^4.0.0",
     "express": "^4.15.4",
     "knex": "^0.13.0",

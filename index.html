@@ -11,11 +11,14 @@
   </head>
   <body>
 
-    <p>click to post</p>
+    <form id="form" class="form" method="post">
+      <input id="username" type="text" name="username" value="" placeholder="Username">
+      <input id="twitter" type="text" name="twitter" value="" placeholder="Twitter">
+      <input id="discord" type="text" name="discord" value="" placeholder="Discord">
+      <button id="postbtn">POST</button>
+    </form>
 
-    this is where i need to implement Oauth for Twitch so that at least one of the three pieces of information so that i do not gt garbage posted into my srver and to allow for me to verify those input fields as valid
-
-    <button id="postbtn">POST</button>
+    <p>click post to submit</p>
 
   </body>
 </html>

@@ -4,8 +4,33 @@ var env = require("dotenv").config();
 var axios = require("axios");
 var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
 var httpRequest = new XMLHttpRequest();
-var usersArray = [];
 
+//functions that make calls
+async function clipRequest(){
+  // noHash(options.channels);
+  var theChannel = options.channels[2];
+  console.log(theChannel);
+  httpRequest.open('GET', `https://api.twitch.tv/kraken/clips/top?limit=1&channel=${theChannel}`);
+  httpRequest.setRequestHeader('Client-ID', 'uo6dggojyb8d6soh92zknwmi5ej1q2');
+  httpRequest.setRequestHeader('Accept', 'application/vnd.twitchtv.v5+json');
+  await httpRequest.send();
+}
+
+async function grabUsers (){
+  await axios.get('http://localhost:3800/username')
+  .then(function (response) {
+    for(let i = 0; i < response.data.length; i++){
+      options.channels.push(response.data[i].username);
+    }
+    console.log("USERS FETCHED");
+    console.log(options.channels[2]);
+  })
+  .catch(function (error) {
+    // console.log(error);
+  });
+  clipRequest();
+}
+grabUsers();
 //These are the settings for the client to use.
 var options = {
   options: {
@@ -19,7 +44,7 @@ var options = {
     username: "wallytreatbot",
     password: process.env.TOKEN
   },
-  channels: ["wallytreats", "", "badbadrobot"],
+  channels: [],//these come from the server
 }
 
 //This is creating our client connection with settings.
@@ -41,38 +66,13 @@ client.on("connected", function(address, port){
 //   }
 // }
 
-async function clipRequest(){
-  // noHash(options.channels);
-  var newChannel = options.channels[2].replace(/[#]/g, "");
-  console.log(newChannel);
-  httpRequest.open('GET', `https://api.twitch.tv/kraken/clips/top?limit=1&channel=${newChannel}`);
-  httpRequest.setRequestHeader('Client-ID', 'uo6dggojyb8d6soh92zknwmi5ej1q2');
-  httpRequest.setRequestHeader('Accept', 'application/vnd.twitchtv.v5+json');
-  await httpRequest.send();
-}
-clipRequest();
-
-function grabUsers (){
-  axios.get('http://localhost:3800/username')
-  .then(function (response) {
-    for(let i = 0; i < response.length; i++){
-      usersArray.push(response.data[i].username);
-    }
-    console.log(response.data[0].username);
-  })
-  .catch(function (error) {
-    // console.log(error);
-  });
-}
-grabUsers();
-console.log(usersArray);
 //This function is executed everytime someone sends a message in the chat.
 client.on("chat", function(channel, user, message){
   //get trendingclip from async await function
-  function getClip() {
+  function getClip(user) {
         var clipList = JSON.parse(httpRequest.responseText);
         clipList.clips.forEach(function(clip, index, array) {
-            client.say(channel, "Here is " + user["display-name"] + "'s current trending clip:" + clip.embed_url)
+            client.say(channel, "Here is " + user + "'s current trending clip:" + clip.embed_url)
         });
       };
 //test command
@@ -89,7 +89,7 @@ client.on("chat", function(channel, user, message){
   }
 
   if(message === "!trendingclip"){
-    getClip();
+    getClip(channel);
   }
   //end of chat listener
 });
