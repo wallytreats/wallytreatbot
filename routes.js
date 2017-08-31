@@ -13,6 +13,14 @@ app.get('/', (req, res, next) => {
     .catch(err => next(err));
 });
 
+app.get('/username', (req, res, next) => {
+  knex('users')
+    .select('username')
+    .then(response => {
+      res.send(response)
+    })
+})
+
 app.post('/', (req, res, next) => {
   // console.log(req.body);
   // console.log("IN THE POST ROUTE");
