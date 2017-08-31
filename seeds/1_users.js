@@ -14,8 +14,14 @@ exports.seed = function(knex, Promise) {
         {
           id: 2,
           username: "xbeezlebubs",
-          twitter: "placeholder",
-          discord: "placeholder"
+          twitter: "-placeholder",
+          discord: "-placeholder"
+        },
+        {
+          id: 3,
+          username: "badbadrobot",
+          twitter: "badbadrobot",
+          discord: "-placeholder"
         }
       ]);
     })

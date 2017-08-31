@@ -3,8 +3,11 @@
 const express = require('express');
 const app = express();
 const knex = require('./knex');
+const cors = require('cors');
 
 const port = process.env.PORT || 3800;
+
+app.use(cors());
 
 app.get('/', (req, res, next) => {
   knex('users')
@@ -16,6 +19,22 @@ app.get('/', (req, res, next) => {
 app.get('/username', (req, res, next) => {
   knex('users')
     .select('username')
+    .then(response => {
+      res.send(response)
+    })
+})
+
+app.get('/twitter', (req, res, next) => {
+  knex('users')
+    .select('twitter')
+    .then(response => {
+      res.send(response)
+    })
+})
+
+app.get('/discord', (req, res, next) => {
+  knex('users')
+    .select('discord')
     .then(response => {
       res.send(response)
     })
