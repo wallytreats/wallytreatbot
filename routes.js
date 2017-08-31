@@ -4,9 +4,12 @@ const express = require('express');
 const app = express();
 const knex = require('./knex');
 const cors = require('cors');
+const bodyParser = require('body-parser')
+
 
 const port = process.env.PORT || 3800;
 
+app.use(bodyParser.json());
 app.use(cors());
 
 app.get('/', (req, res, next) => {
@@ -41,9 +44,9 @@ app.get('/discord', (req, res, next) => {
 })
 
 app.post('/', (req, res, next) => {
-  // console.log(req.body);
-  // console.log("IN THE POST ROUTE");
-  knex('wallybot')
+  console.log(req.body);
+  console.log("IN THE POST ROUTE");
+  knex('users')
   .insert(req.body)
   .returning(['id', 'username', 'twitter', 'discord'])
   .then(userInfo => res.send(userInfo))
