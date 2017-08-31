@@ -1,8 +1,10 @@
 //Initial requires
-var tmi = require('tmi.js');
+var tmi = require("tmi.js");
 var env = require("dotenv").config();
+var axios = require("axios");
 var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
 var httpRequest = new XMLHttpRequest();
+var usersArray = [];
 
 //These are the settings for the client to use.
 var options = {
@@ -17,7 +19,7 @@ var options = {
     username: "wallytreatbot",
     password: process.env.TOKEN
   },
-  channels: ["wallytreats", "xbeezlebubs", "badbadrobot"],
+  channels: ["wallytreats", "", "badbadrobot"],
 }
 
 //This is creating our client connection with settings.
@@ -38,8 +40,8 @@ client.on("connected", function(address, port){
 //     var chanArr = arr.replace(/[#]/g, "");
 //   }
 // }
-console.log(options.channels[2]);
-async function request(){
+
+async function clipRequest(){
   // noHash(options.channels);
   var newChannel = options.channels[2].replace(/[#]/g, "");
   console.log(newChannel);
@@ -48,15 +50,29 @@ async function request(){
   httpRequest.setRequestHeader('Accept', 'application/vnd.twitchtv.v5+json');
   await httpRequest.send();
 }
-request();
+clipRequest();
 
+function grabUsers (){
+  axios.get('http://localhost:3800/username')
+  .then(function (response) {
+    for(let i = 0; i < response.length; i++){
+      usersArray.push(response.data[i].username);
+    }
+    console.log(response.data[0].username);
+  })
+  .catch(function (error) {
+    // console.log(error);
+  });
+}
+grabUsers();
+console.log(usersArray);
 //This function is executed everytime someone sends a message in the chat.
 client.on("chat", function(channel, user, message){
   //get trendingclip from async await function
   function getClip() {
         var clipList = JSON.parse(httpRequest.responseText);
         clipList.clips.forEach(function(clip, index, array) {
-            client.say(channel, clip.embed_url)
+            client.say(channel, "Here is " + user["display-name"] + "'s current trending clip:" + clip.embed_url)
         });
       };
 //test command

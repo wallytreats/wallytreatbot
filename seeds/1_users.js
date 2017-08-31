@@ -10,6 +10,12 @@ exports.seed = function(knex, Promise) {
           username: "wallytreats",
           twitter: "wallytreats",
           discord: "jfQ3kTd"
+        },
+        {
+          id: 2,
+          username: "xbeezlebubs",
+          twitter: "placeholder",
+          discord: "placeholder"
         }
       ]);
     })
