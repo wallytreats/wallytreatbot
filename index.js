@@ -4,11 +4,12 @@ var env = require("dotenv").config();
 var axios = require("axios");
 var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
 var httpRequest = new XMLHttpRequest();
+var globalChannel = null;
 
 //functions that make calls
 async function clipRequest(){
   // noHash(options.channels);
-  var theChannel = options.channels[2];
+  var theChannel = globalChannel
   console.log(theChannel);
   httpRequest.open('GET', `https://api.twitch.tv/kraken/clips/top?limit=1&channel=${theChannel}`);
   httpRequest.setRequestHeader('Client-ID', 'uo6dggojyb8d6soh92zknwmi5ej1q2');
@@ -68,6 +69,7 @@ client.on("connected", function(address, port){
 
 //This function is executed everytime someone sends a message in the chat.
 client.on("chat", function(channel, user, message){
+  globalChannel = channel.replace(/[#]/g, "");
   //get trendingclip from async await function
   function getClip(user) {
         var clipList = JSON.parse(httpRequest.responseText);
@@ -89,7 +91,12 @@ client.on("chat", function(channel, user, message){
   }
 
   if(message === "!trendingclip"){
-    getClip(channel);
+    console.log(globalChannel);
+    setTimeout(function(){
+      getClip(channel);
+    }, 1000);
+
+    clipRequest();
   }
   //end of chat listener
 });
