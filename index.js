@@ -8,9 +8,7 @@ var globalChannel = null;
 
 //functions that make calls
 async function clipRequest(){
-  // noHash(options.channels);
   var theChannel = globalChannel
-  console.log(theChannel);
   httpRequest.open('GET', `https://api.twitch.tv/kraken/clips/top?limit=1&channel=${theChannel}`);
   httpRequest.setRequestHeader('Client-ID', 'uo6dggojyb8d6soh92zknwmi5ej1q2');
   httpRequest.setRequestHeader('Accept', 'application/vnd.twitchtv.v5+json');
@@ -24,7 +22,6 @@ async function grabUsers (){
       options.channels.push(response.data[i].username);
     }
     console.log("USERS FETCHED");
-    console.log(options.channels[2]);
   })
   .catch(function (error) {
     // console.log(error);
