@@ -83,16 +83,15 @@ client.on("chat", function(channel, user, message){
       };
 
       async function grabTwitter (){
-        await axios.get(`https://wallybotdb.herokuapp.com/twitter:${globalChannel}`)
+        await axios.get('https://wallybotdb.herokuapp.com/twitter' + ':' + globalChannel)
         .then(function (response) {
-          console.log("TWITTER FETCHED");
-          console.log(twitterNames);
+          console.log(response);
         })
         .catch(function (error) {
           // console.log(error);
         });
       }
-      grabTwitter();
+
 
 //test command
   if(message === "hello"){
@@ -100,11 +99,12 @@ client.on("chat", function(channel, user, message){
   }
 
   if(message === "!twitter"){
-    client.say(channel, "Follow" + globalChannel + "on Twitter => twitter.com/" + globalTwitter)
+    grabTwitter();
+    client.say(channel, "Follow " + globalChannel + " on Twitter => twitter.com/" + globalChannel)
   }
 
   if(message === "!discord"){
-    client.say(channel, "Join" + globalChannel + "Discord => discord.gg/jfQ3kTd")
+    client.say(channel, "Join " + globalChannel + " Discord => discord.gg/jfQ3kTd")
   }
 
   if(message === "!trendingclip"){
