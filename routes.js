@@ -6,7 +6,6 @@ const knex = require('./knex');
 const cors = require('cors');
 const bodyParser = require('body-parser')
 
-
 const port = process.env.PORT || 3800;
 
 app.use(bodyParser.json());
@@ -27,15 +26,17 @@ app.get('/username', (req, res, next) => {
     })
 })
 
-app.get('/twitter', (req, res, next) => {
+app.get('/twitter:username', (req, res, next) => {
+  let username = req.params.username;
   knex('users')
     .select('twitter')
+    .where('username', username)
     .then(response => {
       res.send(response)
     })
 })
 
-app.get('/discord', (req, res, next) => {
+app.get('/username/discord', (req, res, next) => {
   knex('users')
     .select('discord')
     .then(response => {
