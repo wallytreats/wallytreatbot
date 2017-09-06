@@ -17,12 +17,6 @@ exports.seed = function(knex, Promise) {
           twitter: "-placeholder",
           discord: "-placeholder"
         },
-        {
-          id: 3,
-          username: "badbadrobot",
-          twitter: "badbadrobot",
-          discord: "-placeholder"
-        }
       ]);
     })
     .then(function (){
