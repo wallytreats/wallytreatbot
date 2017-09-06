@@ -5,6 +5,10 @@ var axios = require("axios");
 var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
 var httpRequest = new XMLHttpRequest();
 var globalChannel = null;
+var globalTwitter = null;
+var globalDiscord = null;
+var twitterNames = [];
+var discordLinks = [];
 
 //functions that make calls
 async function clipRequest(){
@@ -30,8 +34,6 @@ async function grabUsers (){
 }
 grabUsers();
 
-// var intervalID = setInterval(grabUsers, 5000);
-
 //These are the settings for the client to use.
 var options = {
   options: {
@@ -52,7 +54,9 @@ var options = {
 var client = new tmi.client(options);
 
 //This connects to the twitch.
-client.connect();
+setTimeout(function(){
+  client.connect();
+}, 1000);
 
 //when connected do this
 client.on("connected", function(address, port){
@@ -64,6 +68,7 @@ client.on("connected", function(address, port){
 //This function is executed everytime someone sends a message in the chat.
 client.on("chat", function(channel, user, message){
   globalChannel = channel.replace(/[#]/g, "");
+
   //get trendingclip from async await function
   function getClip(user) {
         var clipList = JSON.parse(httpRequest.responseText);
@@ -77,13 +82,25 @@ client.on("chat", function(channel, user, message){
         }
       };
 
+      async function grabTwitter (){
+        await axios.get(`https://wallybotdb.herokuapp.com/twitter:${globalChannel}`)
+        .then(function (response) {
+          console.log("TWITTER FETCHED");
+          console.log(twitterNames);
+        })
+        .catch(function (error) {
+          // console.log(error);
+        });
+      }
+      grabTwitter();
+
 //test command
   if(message === "hello"){
     client.say(channel, " Hi! " + user["display-name"])
   }
 
   if(message === "!twitter"){
-    client.say(channel, "Follow" + globalChannel + "on Twitter => twitter.com/wallytreats")
+    client.say(channel, "Follow" + globalChannel + "on Twitter => twitter.com/" + globalTwitter)
   }
 
   if(message === "!discord"){
@@ -95,7 +112,6 @@ client.on("chat", function(channel, user, message){
     setTimeout(function(){
       getClip(channel);
     }, 1000);
-
     clipRequest();
   }
   //end of chat listener
