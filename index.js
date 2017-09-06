@@ -7,8 +7,6 @@ var httpRequest = new XMLHttpRequest();
 var globalChannel = null;
 var globalTwitter = null;
 var globalDiscord = null;
-var twitterNames = [];
-var discordLinks = [];
 
 //functions that make calls
 async function clipRequest(){
@@ -83,16 +81,26 @@ client.on("chat", function(channel, user, message){
       };
 
       async function grabTwitter (){
-        await axios.get('http://localhost:3800/twitter' + ':' + globalChannel)
+        await axios.get('https://wallybotdb.herokuapp.com/twitter' + globalChannel)
         .then(function (response) {
-
-          console.log(response.data);
+          globalTwitter = response.data[0].twitter;
+          console.log(response.data[0].twitter);
         })
         .catch(function (error) {
           // console.log(error);
         });
       }
 
+      async function grabDiscord (){
+        await axios.get('https://wallybotdb.herokuapp.com/discord' + globalChannel)
+        .then(function (response) {
+          globalDiscord = response.data[0].discord;
+          console.log(response.data[0].discord);
+        })
+        .catch(function (error) {
+          // console.log(error);
+        });
+      }
 
 //test command
   if(message === "hello"){
@@ -101,11 +109,16 @@ client.on("chat", function(channel, user, message){
 
   if(message === "!twitter"){
     grabTwitter();
-    client.say(channel, "Follow " + globalChannel + " on Twitter => twitter.com/" + globalChannel)
+    setTimeout(function(){
+      client.say(channel, "Follow " + globalChannel + " on Twitter => twitter.com/" + globalTwitter)
+    }, 1000);
   }
 
   if(message === "!discord"){
-    client.say(channel, "Join " + globalChannel + " Discord => discord.gg/jfQ3kTd")
+    grabDiscord();
+    setTimeout(function(){
+      client.say(channel, "Join " + globalChannel + "'s Discord => discord.gg/" + globalDiscord)
+    }, 1000);
   }
 
   if(message === "!trendingclip"){

@@ -28,7 +28,6 @@ app.get('/username', (req, res, next) => {
 
 app.get('/twitter:username', (req, res, next) => {
   let username = req.params.username;
-  console.log(username);
   knex('users')
     .select('twitter')
     .where('username', username)
@@ -37,9 +36,11 @@ app.get('/twitter:username', (req, res, next) => {
     })
 })
 
-app.get('/username/discord', (req, res, next) => {
+app.get('/discord:username', (req, res, next) => {
+  let username = req.params.username;
   knex('users')
     .select('discord')
+    .where('username', username)
     .then(response => {
       res.send(response)
     })
