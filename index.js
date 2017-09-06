@@ -16,7 +16,7 @@ async function clipRequest(){
 }
 
 async function grabUsers (){
-  await axios.get('http://localhost:3800/username')
+  await axios.get('https://wallybotdb.herokuapp.com/username')
   .then(function (response) {
     for(let i = 0; i < response.data.length; i++){
       options.channels.push(response.data[i].username);
