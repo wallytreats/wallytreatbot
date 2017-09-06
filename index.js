@@ -5,6 +5,8 @@ var axios = require("axios");
 var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
 var httpRequest = new XMLHttpRequest();
 var globalChannel = null;
+var globalTwitter = null;
+var globalDiscord = null;
 
 //functions that make calls
 async function clipRequest(){
@@ -16,7 +18,7 @@ async function clipRequest(){
 }
 
 async function grabUsers (){
-  await axios.get('http://localhost:3800/username')
+  await axios.get('https://wallybotdb.herokuapp.com/username')
   .then(function (response) {
     for(let i = 0; i < response.data.length; i++){
       options.channels.push(response.data[i].username);
@@ -50,18 +52,21 @@ var options = {
 var client = new tmi.client(options);
 
 //This connects to the twitch.
-client.connect();
+setTimeout(function(){
+  client.connect();
+}, 1000);
 
 //when connected do this
 client.on("connected", function(address, port){
-  // for (let i = 0; i < options.channels.length; i++){
-  //   client.action(options.channels[i], "You have summoned me.");
-  // }
+  for (let i = 0; i < options.channels.length; i++){
+    client.action(options.channels[i], "You have summoned me.");
+  }
 });
 
 //This function is executed everytime someone sends a message in the chat.
 client.on("chat", function(channel, user, message){
   globalChannel = channel.replace(/[#]/g, "");
+
   //get trendingclip from async await function
   function getClip(user) {
         var clipList = JSON.parse(httpRequest.responseText);
@@ -75,17 +80,45 @@ client.on("chat", function(channel, user, message){
         }
       };
 
+      async function grabTwitter (){
+        await axios.get('https://wallybotdb.herokuapp.com/twitter' + globalChannel)
+        .then(function (response) {
+          globalTwitter = response.data[0].twitter;
+          console.log(response.data[0].twitter);
+        })
+        .catch(function (error) {
+          // console.log(error);
+        });
+      }
+
+      async function grabDiscord (){
+        await axios.get('https://wallybotdb.herokuapp.com/discord' + globalChannel)
+        .then(function (response) {
+          globalDiscord = response.data[0].discord;
+          console.log(response.data[0].discord);
+        })
+        .catch(function (error) {
+          // console.log(error);
+        });
+      }
+
 //test command
   if(message === "hello"){
     client.say(channel, " Hi! " + user["display-name"])
   }
 
   if(message === "!twitter"){
-    client.say(channel, "Follow" + globalChannel + "on Twitter => twitter.com/wallytreats")
+    grabTwitter();
+    setTimeout(function(){
+      client.say(channel, "Follow " + globalChannel + " on Twitter => twitter.com/" + globalTwitter)
+    }, 1000);
   }
 
   if(message === "!discord"){
-    client.say(channel, "Join" + globalChannel + "Discord => discord.gg/jfQ3kTd")
+    grabDiscord();
+    setTimeout(function(){
+      client.say(channel, "Join " + globalChannel + "'s Discord => discord.gg/" + globalDiscord)
+    }, 1000);
   }
 
   if(message === "!trendingclip"){
@@ -93,7 +126,6 @@ client.on("chat", function(channel, user, message){
     setTimeout(function(){
       getClip(channel);
     }, 1000);
-
     clipRequest();
   }
   //end of chat listener
