@@ -4,7 +4,7 @@
   "description": "This is a Twitch Bot created with NodeJS using the tmi.js module.",
   "main": "index.js",
   "scripts": {
-    "start": "node index.html",
+    "start": "node routes.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
