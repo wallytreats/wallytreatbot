@@ -29,6 +29,7 @@ async function grabUsers (){
   clipRequest();
 }
 grabUsers();
+
 //These are the settings for the client to use.
 var options = {
   options: {
@@ -58,37 +59,37 @@ client.on("connected", function(address, port){
   // }
 });
 
-// function noHash (arr){
-//   for (let i = 0; i < arr.length; i++){
-//     var chanArr = arr.replace(/[#]/g, "");
-//   }
-// }
-
 //This function is executed everytime someone sends a message in the chat.
 client.on("chat", function(channel, user, message){
   globalChannel = channel.replace(/[#]/g, "");
   //get trendingclip from async await function
   function getClip(user) {
         var clipList = JSON.parse(httpRequest.responseText);
-        clipList.clips.forEach(function(clip, index, array) {
-            client.say(channel, "Here is " + user + "'s current trending clip:" + clip.embed_url)
-        });
+        if (clipList.clips.length > 0){
+          clipList.clips.forEach(function(clip, index, array) {
+            client.say(channel, "Here is " + globalChannel + "'s current trending clip:" + clip.embed_url)
+            console.log("log", clip.embed_url);
+          });
+        } else {
+          client.say(channel, globalChannel + " does not have a current trending clip")
+        }
       };
+
 //test command
   if(message === "hello"){
     client.say(channel, " Hi! " + user["display-name"])
   }
 
   if(message === "!twitter"){
-    client.say(channel, "Follow me on Twitter => twitter.com/wallytreats")
+    client.say(channel, "Follow" + globalChannel + "on Twitter => twitter.com/wallytreats")
   }
 
   if(message === "!discord"){
-    client.say(channel, "Join my Discord server => discord.gg/jfQ3kTd")
+    client.say(channel, "Join" + globalChannel + "Discord => discord.gg/jfQ3kTd")
   }
 
   if(message === "!trendingclip"){
-    console.log(globalChannel);
+    // console.log(globalChannel);
     setTimeout(function(){
       getClip(channel);
     }, 1000);
