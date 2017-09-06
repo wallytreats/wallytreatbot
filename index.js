@@ -30,6 +30,8 @@ async function grabUsers (){
 }
 grabUsers();
 
+// var intervalID = setInterval(grabUsers, 5000);
+
 //These are the settings for the client to use.
 var options = {
   options: {
@@ -54,9 +56,9 @@ client.connect();
 
 //when connected do this
 client.on("connected", function(address, port){
-  // for (let i = 0; i < options.channels.length; i++){
-  //   client.action(options.channels[i], "You have summoned me.");
-  // }
+  for (let i = 0; i < options.channels.length; i++){
+    client.action(options.channels[i], "You have summoned me.");
+  }
 });
 
 //This function is executed everytime someone sends a message in the chat.
