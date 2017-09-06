@@ -28,6 +28,7 @@ app.get('/username', (req, res, next) => {
 
 app.get('/twitter:username', (req, res, next) => {
   let username = req.params.username;
+  console.log(username);
   knex('users')
     .select('twitter')
     .where('username', username)

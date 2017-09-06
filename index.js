@@ -20,7 +20,7 @@ async function clipRequest(){
 }
 
 async function grabUsers (){
-  await axios.get('https://wallybotdb.herokuapp.com/username')
+  await axios.get('http://localhost:3800/username')
   .then(function (response) {
     for(let i = 0; i < response.data.length; i++){
       options.channels.push(response.data[i].username);
@@ -83,9 +83,10 @@ client.on("chat", function(channel, user, message){
       };
 
       async function grabTwitter (){
-        await axios.get('https://wallybotdb.herokuapp.com/twitter' + ':' + globalChannel)
+        await axios.get('http://localhost:3800/twitter' + ':' + globalChannel)
         .then(function (response) {
-          console.log(response);
+
+          console.log(response.data);
         })
         .catch(function (error) {
           // console.log(error);
