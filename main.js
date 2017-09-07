@@ -1,6 +1,6 @@
 
   $('#postbtn').click(function(event){
-    event.preventDefault();
+    // event.preventDefault();
     // console.log("hello");
         var payload = {
           username: document.getElementById("form").elements[0].value,
