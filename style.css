@@ -1,0 +1,8 @@
+body {
+  /*background-color: #4B367C;*/
+}
+
+#title {
+  display: flex;
+  background-color: #4B367C;
+}
