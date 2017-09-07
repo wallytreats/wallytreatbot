@@ -11,7 +11,7 @@ var globalDiscord = null;
 //functions that make calls
 async function clipRequest(){
   var theChannel = globalChannel
-  httpRequest.open('GET', `https://api.twitch.tv/kraken/clips/top?limit=1&channel=${theChannel}`);
+  httpRequest.open('GET', `https://api.twitch.tv/kraken/clips/top?limit=1&trending=true&channel=${theChannel}`);
   httpRequest.setRequestHeader('Client-ID', 'uo6dggojyb8d6soh92zknwmi5ej1q2');
   httpRequest.setRequestHeader('Accept', 'application/vnd.twitchtv.v5+json');
   await httpRequest.send();
