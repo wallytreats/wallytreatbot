@@ -11,7 +11,7 @@
           contentType: 'application/json',
           data: JSON.stringify(payload),
           method: "POST",
-          url: "http://localhost:3800/"
+          url: "https://wallybotdb.herokuapp.com/"
         }
 
         $.ajax(options).done((data) => {
