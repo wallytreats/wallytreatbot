@@ -19,6 +19,10 @@
             console.log("got nothin");
           }
         })
+          document.getElementById("form").elements[0].value = "";
+          document.getElementById("form").elements[1].value = "";
+          document.getElementById("form").elements[2].value = "";
+
         console.log(payload.username);
 
     })

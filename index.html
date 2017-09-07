@@ -1,24 +1,47 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <link rel="stylesheet" href="style2.css">
     <script
       src="https://code.jquery.com/jquery-3.2.1.min.js"
       integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
       crossorigin="anonymous"></script>
     <script type="text/javascript" src="./main.js" defer></script>
-    <meta charset="utf-8">
-    <title></title>
+
+    <title>WallytreatBot</title>
+
   </head>
-  <body>
+    <body>
 
-    <form id="form" class="form" method="post">
-      <input id="username" type="text" name="username" value="" placeholder="Username">
-      <input id="twitter" type="text" name="twitter" value="" placeholder="Twitter">
-      <input id="discord" type="text" name="discord" value="" placeholder="Discord">
-      <button id="postbtn">POST</button>
-    </form>
+    <div class="topnav">
+      <a class="active">Home</a>
+      <a href="https://github.com/wallytreats/wallytreatbot">Github</a>
+      <a href="https://www.linkedin.com/in/nick-w-lawrence/">LinkedIn</a>
+      <a href="https://www.twitter.com/wallytreats">Twitter</a>
+    </div>
 
-    <p>click post to submit</p>
+    <br>
+
+    <div id="title">
+      <img src="https://fontmeme.com/permalink/170907/b84e3c3a9cad0a76b0a6625050ed0aa9.png" alt="twitch-logo-font" border="0">
+    </div>
+
+    <br>
+
+    <div id="motto">
+      Enter your Twitch Username to enable our bot on your channel.
+    </div>
+
+    <br>
+
+    <div id="formdiv">
+      <form id="form" class="form" method="post">
+        <input id="username" type="text" name="username" value="" placeholder="Username">
+        <input id="twitter" type="text" name="twitter" value="" placeholder="Twitter(optional)">
+        <input id="discord" type="text" name="discord" value="" placeholder="Discord(optional)">
+        <button class="btn" id="postbtn">SUBMIT</button>
+      </form>
+    </div>
 
   </body>
 </html>
