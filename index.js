@@ -4,33 +4,34 @@ var env = require("dotenv").config();
 var axios = require("axios");
 var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
 var httpRequest = new XMLHttpRequest();
-var globalChannel = null;
-var globalTwitter = null;
+var globalChannel = "Wallytreats";
+var globalTwitter = "Wallytreats";
 var globalDiscord = null;
+var omgcount = 0;
 
 //functions that make calls
 async function clipRequest(){
   var theChannel = globalChannel
-  httpRequest.open('GET', `https://api.twitch.tv/kraken/clips/top?limit=1&trending=true&channel=${theChannel}`);
-  httpRequest.setRequestHeader('Client-ID', 'uo6dggojyb8d6soh92zknwmi5ej1q2');
+  httpRequest.open('GET', 'https://api.twitch.tv/kraken/clips/top?limit=1&trending=true&channel=wallytreats');
+  httpRequest.setRequestHeader('Client-ID', 'of5bj8zj77v9e2z4pve9w0edt1tfdl');
   httpRequest.setRequestHeader('Accept', 'application/vnd.twitchtv.v5+json');
   await httpRequest.send();
 }
 
-async function grabUsers (){
-  await axios.get('https://wallybotdb.herokuapp.com/username')
-  .then(function (response) {
-    for(let i = 0; i < response.data.length; i++){
-      options.channels.push(response.data[i].username);
-    }
-    console.log("USERS FETCHED");
-  })
-  .catch(function (error) {
-    // console.log(error);
-  });
-  clipRequest();
-}
-grabUsers();
+// async function grabUsers (){
+//   await axios.get('https://wallybotdb.herokuapp.com/username')
+//   .then(function (response) {
+//     for(let i = 0; i < response.data.length; i++){
+//       options.channels.push(response.data[i].username);
+//     }
+//     console.log("USERS FETCHED");
+//   })
+//   .catch(function (error) {
+//     // console.log(error);
+//   });
+//   clipRequest();
+// }
+// grabUsers();
 
 //These are the settings for the client to use.
 var options = {
@@ -45,7 +46,7 @@ var options = {
     username: "wallytreatbot",
     password: process.env.TOKEN
   },
-  channels: [],//these come from the server
+  channels: ["Wallytreats"],//these come from the server
 }
 
 //This is creating our client connection with settings.
@@ -65,11 +66,12 @@ client.on("connected", function(address, port){
 
 //This function is executed everytime someone sends a message in the chat.
 client.on("chat", function(channel, user, message){
-  globalChannel = channel.replace(/[#]/g, "");
+  // globalChannel = channel.replace(/[#]/g, "");
 
   //get trendingclip from async await function
   function getClip(user) {
         var clipList = JSON.parse(httpRequest.responseText);
+        console.log(httpRequest.responseText);
         if (clipList.clips.length > 0){
           clipList.clips.forEach(function(clip, index, array) {
             client.say(channel, "Here is " + globalChannel + "'s current trending clip:" + clip.embed_url)
@@ -80,57 +82,123 @@ client.on("chat", function(channel, user, message){
         }
       };
 
-      async function grabTwitter (){
-        await axios.get('https://wallybotdb.herokuapp.com/twitter' + globalChannel)
-        .then(function (response) {
-          globalTwitter = response.data[0].twitter;
-          console.log(response.data[0].twitter);
-        })
-        .catch(function (error) {
-          // console.log(error);
-        });
-      }
-
-      async function grabDiscord (){
-        await axios.get('https://wallybotdb.herokuapp.com/discord' + globalChannel)
-        .then(function (response) {
-          globalDiscord = response.data[0].discord;
-          console.log(response.data[0].discord);
-        })
-        .catch(function (error) {
-          // console.log(error);
-        });
-      }
+      // async function grabTwitter (){
+      //   await axios.get('https://wallybotdb.herokuapp.com/twitter' + globalChannel)
+      //   .then(function (response) {
+      //     globalTwitter = response.data[0].twitter;
+      //     console.log(response.data[0].twitter);
+      //   })
+      //   .catch(function (error) {
+      //     // console.log(error);
+      //   });
+      // }
+      //
+      // async function grabDiscord (){
+      //   await axios.get('https://wallybotdb.herokuapp.com/discord' + globalChannel)
+      //   .then(function (response) {
+      //     globalDiscord = response.data[0].discord;
+      //     console.log(response.data[0].discord);
+      //   })
+      //   .catch(function (error) {
+      //     // console.log(error);
+      //   });
+      // }
 
 //test command
-  if(message === "hello"){
-    client.say(channel, " Hi! " + user["display-name"])
+  // if(message === "hello" || "hey" || "hi"){
+  //   client.say(channel, "Hi! " + user["display-name"] + "Welcome to the stream.")
+  // }
+
+  if(message == "!gay"){
+    client.say(channel, "Im glad you are so open about your sexuallity " + user["display-name"])
   }
 
-  if(message === "!twitter"){
-    grabTwitter();
-    setTimeout(function(){
-      client.say(channel, "Follow " + globalChannel + " on Twitter => twitter.com/" + globalTwitter)
-    }, 1000);
+  if(message == "!ember"){
+    client.say(channel, "@TheEmberStrife is amazing subscribe to her YouTube here: YouTube.com/TheEmberStrife")
   }
 
-  if(message === "!discord"){
-    grabDiscord();
-    setTimeout(function(){
-      client.say(channel, "Join " + globalChannel + "'s Discord => discord.gg/" + globalDiscord)
-    }, 1000);
+  if(message == "!tits"){
+    client.say(channel, "Here's some tits for ya " + user["display-name"] + " http://i25.tinypic.com/205bhjd.jpg")
   }
 
-  if(message === "!trendingclip"){
+  if(message == "!twitter"){
+    // grabTwitter();
+    // setTimeout(function(){
+      client.say(channel, "Follow Wallytreats on Twitter => twitter.com/Wallytreats")
+    // }, 1000);
+  }
+
+  if(message == "!discord"){
+    // grabDiscord();
+    // setTimeout(function(){
+      client.say(channel, "Join  Wallytreats's Discord => discord.gg/jfQ3kTd")
+    // }, 1000);
+  }
+
+  if(message == "!howbig"){
+    client.say(channel, "Wouldnt you like to know " + user["display-name"])
+  }
+
+  // if(message == "!omg"){
+  //   client.say(channel, user["display-name"] + " @Wallytreats has said 'oh my god' " + omgcount + 1 + " times.")
+  // }
+
+  if(message === "!tc" ){
     // console.log(globalChannel);
     setTimeout(function(){
       getClip(channel);
-    }, 1000);
+    }, 4000);
     clipRequest();
+    console.log();
   }
+
+  if(message == "!listen"){
+    client.say(channel, "WALLY LOOK AT CHAT!!!" + user["display-name"] + " is trying to tell you something!" )
+  }
+
+  if(message == "!dreamz"){
+    client.say(channel, "@dreamzandthingz has the hammer dont make her use it")
+  }
+
+  if(message == "!jeff"){
+    client.say(channel, "@jeffleach Twitch's King of Comedy => twitch.tv/jeffleach")
+  }
+
+  if(message == "!hp"){
+    client.say(channel, "@hpla5erjet is the nicest mod ever unless you give her a reason to kill you")
+  }
+
+  if(message == "!bbr"){
+    client.say(channel, "@badbadrobot The Golden Voice of Twitch => twitch.tv/badbadrobot")
+  }
+
+  if(message == "!harambe"){
+    client.say(channel, "#JusticeForHarambe")
+  }
+
+  if(message == "!giveaway"){
+    client.say(channel, "We will be giving away a $25 Amazon giftcard (thnx to @covenus) stick around for the giveaway trivia question and be first to answer correctly!")
+  }
+
+  if(message == "!music"){
+    client.say(channel, "To listen to the music you are hearing go to soundcloud.com/wallytreats")
+  }
+
+  if(message == "!soundcloud"){
+    client.say(channel, "To listen to the music you are hearing go to soundcloud.com/wallytreats")
+  }
+
+  if(message == "!schedule"){
+    client.say(channel, "@wallytreats currently streams everyday starting at 8-8:30pmEST w/ a Friday Night DJ stream")
+  }
+
   //end of chat listener
 });
 
-client.on("ban", function (channel, username, reason) {
-    client.say(channel, "User: " + user[display-name] + " - has been banned.")
-});
+// client.on("subscription", function (channel, username, method, message, userstate) {
+//   client.say(channel, user["display-name"] + " has subscirbed. Welcome!")
+// });
+//
+// client.on("ban", function (channel, user, reason) {
+//   client.say(channel, user["display-name"] + " - has been hit with the hammer, FeelsBadMan")
+// });
