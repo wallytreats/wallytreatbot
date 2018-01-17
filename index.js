@@ -7,7 +7,6 @@ var httpRequest = new XMLHttpRequest();
 var globalChannel = "Wallytreats";
 var globalTwitter = "Wallytreats";
 var globalDiscord = null;
-var omgcount = 0;
 
 //functions that make calls
 async function clipRequest(){
@@ -60,7 +59,7 @@ setTimeout(function(){
 //when connected do this
 client.on("connected", function(address, port){
   for (let i = 0; i < options.channels.length; i++){
-    client.action(options.channels[i], "You have summoned me.");
+    client.action(options.channels[i], " PogChamp");
   }
 });
 
@@ -114,7 +113,7 @@ client.on("chat", function(channel, user, message){
   }
 
   if(message == "!ember"){
-    client.say(channel, "@TheEmberStrife is amazing subscribe to her YouTube here: YouTube.com/TheEmberStrife")
+    client.say(channel, "@TheEmberStrife is amazing follow her Twitch channel here: https://twitch.tv/theemberstrife")
   }
 
   if(message == "!tits"){
@@ -156,13 +155,13 @@ client.on("chat", function(channel, user, message){
     client.say(channel, "WALLY LOOK AT CHAT!!!" + user["display-name"] + " is trying to tell you something!" )
   }
 
-  if(message == "!dreamz"){
-    client.say(channel, "@dreamzandthingz has the hammer dont make her use it")
+  if(message == "!charity"){
+    client.say(channel, "Be sure to include #charity in your cheers and Twitch will give money to charity every 1000 bits")
   }
 
-  if(message == "!jeff"){
-    client.say(channel, "@jeffleach Twitch's King of Comedy => twitch.tv/jeffleach")
-  }
+  // if(message == "!jeff"){
+  //   client.say(channel, "@jeffleach Twitch's King of Comedy => twitch.tv/jeffleach")
+  // }
 
   if(message == "!hp"){
     client.say(channel, "@hpla5erjet is the nicest mod ever unless you give her a reason to kill you")
@@ -176,20 +175,16 @@ client.on("chat", function(channel, user, message){
     client.say(channel, "#JusticeForHarambe")
   }
 
-  if(message == "!giveaway"){
-    client.say(channel, "We will be giving away a $25 Amazon giftcard (thnx to @covenus) stick around for the giveaway trivia question and be first to answer correctly!")
-  }
-
   if(message == "!music"){
-    client.say(channel, "To listen to the music you are hearing go to soundcloud.com/wallytreats")
+    client.say(channel, "To listen to the music you are hearing go to soundcloud.com/wallytreats and click on his 'Likes' section")
   }
 
   if(message == "!soundcloud"){
-    client.say(channel, "To listen to the music you are hearing go to soundcloud.com/wallytreats")
+    client.say(channel, "Listen to small selection of the music i have made soundcloud.com/wallytreats")
   }
 
   if(message == "!schedule"){
-    client.say(channel, "@wallytreats currently streams everyday starting at 8-8:30pmEST w/ a Friday Night DJ stream")
+    client.say(channel, )
   }
 
   //end of chat listener
