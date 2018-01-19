@@ -198,17 +198,17 @@ if(message.indexOf("!quote") === 0){
   }
 }
 
-// var message = "!quote this is a quote";  
-// var quoteArray = [];
-// var quoteCount = quoteArray.length;
-//
-// function addQuote(msg){
-// newMsg = msg.substring(msg.indexOf(" ") + 1);
-// quoteArray.push(newMsg);
-// console.log(quoteArray);
-// }
-//
-// addQuote("!quote this is a quote");
+var message = "!quote this is a quote";
+var quoteArray = [];
+var quoteCount = quoteArray.length;
+
+function addQuote(msg){
+newMsg = msg.substring(msg.indexOf(" ") + 1);
+quoteArray.push(newMsg);
+console.log(quoteArray);
+}
+
+addQuote("!quote this is a quote");
 
 
 // client.on("subscription", function (channel, username, method, message, userstate) {
