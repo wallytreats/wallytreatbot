@@ -190,25 +190,25 @@ client.on("chat", function(channel, user, message){
   //end of chat listener
 });
 
-if(message.indexOf("!quote") === 0){
-  console.log("true");
-  // addQuote(message);
-  if(quoteCount){
-  // client.say(channel, "{username} has sucessfully added a quote");
-  }
-}
-
-var message = "!quote this is a quote";
-var quoteArray = [];
-var quoteCount = quoteArray.length;
-
-function addQuote(msg){
-newMsg = msg.substring(msg.indexOf(" ") + 1);
-quoteArray.push(newMsg);
-console.log(quoteArray);
-}
-
-addQuote("!quote this is a quote");
+// if(message.indexOf("!quote") === 0){
+//   console.log("true");
+//   // addQuote(message);
+//   if(quoteCount){
+//   // client.say(channel, "{username} has sucessfully added a quote");
+//   }
+// }
+//
+// var message = "!quote this is a quote";
+// var quoteArray = [];
+// var quoteCount = quoteArray.length;
+//
+// function addQuote(msg){
+// newMsg = msg.substring(msg.indexOf(" ") + 1);
+// quoteArray.push(newMsg);
+// console.log(quoteArray);
+// }
+//
+// addQuote("!quote this is a quote");
 
 
 // client.on("subscription", function (channel, username, method, message, userstate) {
