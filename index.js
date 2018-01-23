@@ -155,14 +155,6 @@ client.on("chat", function(channel, user, message){
     client.say(channel, "WALLY LOOK AT CHAT!!!" + user["display-name"] + " is trying to tell you something!" )
   }
 
-  if(message == "!charity"){
-    client.say(channel, "Be sure to include #charity in your cheers and Twitch will give money to charity every 1000 bits")
-  }
-
-  // if(message == "!jeff"){
-  //   client.say(channel, "@jeffleach Twitch's King of Comedy => twitch.tv/jeffleach")
-  // }
-
   if(message == "!hp"){
     client.say(channel, "@hpla5erjet is the nicest mod ever unless you give her a reason to kill you")
   }
