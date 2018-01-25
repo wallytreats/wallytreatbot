@@ -138,10 +138,6 @@ client.on("chat", function(channel, user, message){
     client.say(channel, "Wouldnt you like to know " + user["display-name"])
   }
 
-  // if(message == "!omg"){
-  //   client.say(channel, user["display-name"] + " @Wallytreats has said 'oh my god' " + omgcount + 1 + " times.")
-  // }
-
   if(message === "!tc" ){
     // console.log(globalChannel);
     setTimeout(function(){
