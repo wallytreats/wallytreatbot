@@ -46,12 +46,10 @@ app.get('/discord:username', (req, res, next) => {
     })
 })
 
-app.post('/', (req, res, next) => {
-  console.log(req.body);
-  console.log("IN THE POST ROUTE");
+app.post('/questions', (req, res, next) => {
   knex('users')
   .insert(req.body)
-  .returning(['id', 'username', 'twitter', 'discord'])
+  .returning(['message', 'username'])
   .then(userInfo => res.send(userInfo))
   .catch(err => next(err));
 });

@@ -9,13 +9,13 @@ var globalTwitter = "Wallytreats";
 var globalDiscord = null;
 
 //functions that make calls
-async function clipRequest(){
-  var theChannel = globalChannel
-  httpRequest.open('GET', 'https://api.twitch.tv/kraken/clips/top?limit=1&trending=true&channel=wallytreats');
-  httpRequest.setRequestHeader('Client-ID', 'of5bj8zj77v9e2z4pve9w0edt1tfdl');
-  httpRequest.setRequestHeader('Accept', 'application/vnd.twitchtv.v5+json');
-  await httpRequest.send();
-}
+// async function clipRequest(){
+//   var theChannel = globalChannel
+//   httpRequest.open('GET', 'https://api.twitch.tv/kraken/clips/top?limit=1&trending=true&channel=wallytreats');
+//   httpRequest.setRequestHeader('Client-ID', 'of5bj8zj77v9e2z4pve9w0edt1tfdl');
+//   httpRequest.setRequestHeader('Accept', 'application/vnd.twitchtv.v5+json');
+//   await httpRequest.send();
+// }
 
 // async function grabUsers (){
 //   await axios.get('https://wallybotdb.herokuapp.com/username')
@@ -31,6 +31,10 @@ async function clipRequest(){
 //   clipRequest();
 // }
 // grabUsers();
+
+postQuestion = async (data) => {
+  axios.post('/questions', data);
+}
 
 //These are the settings for the client to use.
 var options = {
@@ -68,18 +72,18 @@ client.on("chat", function(channel, user, message){
   // globalChannel = channel.replace(/[#]/g, "");
 
   //get trendingclip from async await function
-  function getClip(user) {
-        var clipList = JSON.parse(httpRequest.responseText);
-        console.log(httpRequest.responseText);
-        if (clipList.clips.length > 0){
-          clipList.clips.forEach(function(clip, index, array) {
-            client.say(channel, "Here is " + globalChannel + "'s current trending clip:" + clip.embed_url)
-            console.log("log", clip.embed_url);
-          });
-        } else {
-          client.say(channel, globalChannel + " does not have a current trending clip")
-        }
-      };
+  // function getClip(user) {
+  //       var clipList = JSON.parse(httpRequest.responseText);
+  //       console.log(httpRequest.responseText);
+  //       if (clipList.clips.length > 0){
+  //         clipList.clips.forEach(function(clip, index, array) {
+  //           client.say(channel, "Here is " + globalChannel + "'s current trending clip:" + clip.embed_url)
+  //           console.log("log", clip.embed_url);
+  //         });
+  //       } else {
+  //         client.say(channel, globalChannel + " does not have a current trending clip")
+  //       }
+  //     };
 
       // async function grabTwitter (){
       //   await axios.get('https://wallybotdb.herokuapp.com/twitter' + globalChannel)
@@ -103,23 +107,6 @@ client.on("chat", function(channel, user, message){
       //   });
       // }
 
-//test command
-  // if(message === "hello" || "hey" || "hi"){
-  //   client.say(channel, "Hi! " + user["display-name"] + "Welcome to the stream.")
-  // }
-
-  if(message == "!gay"){
-    client.say(channel, "Im glad you are so open about your sexuallity " + user["display-name"])
-  }
-
-  if(message == "!ember"){
-    client.say(channel, "@TheEmberStrife is amazing follow her Twitch channel here: https://twitch.tv/theemberstrife")
-  }
-
-  if(message == "!tits"){
-    client.say(channel, "Here's some tits for ya " + user["display-name"] + " http://i25.tinypic.com/205bhjd.jpg")
-  }
-
   if(message == "!twitter"){
     // grabTwitter();
     // setTimeout(function(){
@@ -132,10 +119,6 @@ client.on("chat", function(channel, user, message){
     // setTimeout(function(){
       client.say(channel, "Join  Wallytreats's Discord => discord.gg/jfQ3kTd")
     // }, 1000);
-  }
-
-  if(message == "!howbig"){
-    client.say(channel, "Wouldnt you like to know " + user["display-name"])
   }
 
   if(message === "!tc" ){
@@ -151,30 +134,27 @@ client.on("chat", function(channel, user, message){
     client.say(channel, "WALLY LOOK AT CHAT!!!" + user["display-name"] + " is trying to tell you something!" )
   }
 
-  if(message == "!hp"){
-    client.say(channel, "@hpla5erjet is the nicest mod ever unless you give her a reason to kill you")
-  }
-
-  if(message == "!bbr"){
-    client.say(channel, "@badbadrobot The Golden Voice of Twitch => twitch.tv/badbadrobot")
-  }
-
   if(message == "!harambe"){
     client.say(channel, "#JusticeForHarambe")
   }
 
   if(message == "!music"){
-    client.say(channel, "To listen to the music you are hearing go to soundcloud.com/wallytreats and click on his 'Likes' section")
+    client.say(channel, "To listen to the music you are hearing go to => https://soundcloud.com/wallytreats/likes")
   }
 
   if(message == "!soundcloud"){
-    client.say(channel, "Listen to small selection of the music i have made soundcloud.com/wallytreats")
+    client.say(channel, "Wallytreats has sold and produced hundreds of songs to hear his personal artist project click here => https://soundcloud.com/wallytreats")
   }
 
-  if(message == "!schedule"){
-    client.say(channel, )
+  if(message.includes('!q')){
+    const msg = message.slice(2);
+    const data = {
+      message: msg,
+      username: user["display-name"]
+    }
+    client.say(channel, "grabbed question:" + message)
+    postQuestion(data);
   }
-
   //end of chat listener
 });
 
