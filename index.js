@@ -33,7 +33,11 @@ var globalDiscord = null;
 // grabUsers();
 
 postQuestion = async (data) => {
-  axios.post('/questions', data);
+  try{
+    axios.post('/questions', data);
+  } catch (err){
+    console.log(err);
+  }
 }
 
 //These are the settings for the client to use.
@@ -147,12 +151,12 @@ client.on("chat", function(channel, user, message){
   }
 
   if(message.includes('!q')){
-    const msg = message.slice(2);
+    const msg = message.slice(3);
     const data = {
       message: msg,
       username: user["display-name"]
     }
-    client.say(channel, "grabbed question:" + message)
+    client.say(channel, "grabbed question: " + msg)
     postQuestion(data);
   }
   //end of chat listener

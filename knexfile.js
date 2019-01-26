@@ -3,7 +3,7 @@
 module.exports = {
   development: {
     client: 'pg',
-    connection: 'postgres://localhost/wallybot'
+    connection: 'https://wallybotdb.herokuapp.com'
   },
 
   production: {
